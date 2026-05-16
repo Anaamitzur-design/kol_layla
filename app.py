@@ -45,6 +45,6 @@ if st.button("צור את מדיטציית הלילה שלי"):
                 st.write(response.text)
                 
             except Exception as e:
-                st.error("st.error(f"השגיאה שגוגל החזירה היא: {e}")")
+                st.error(f"השגיאה שגוגל החזירה היא: {e}")
     else:
         st.warning("בבקשה מלאי את שלושת השדות כדי שנוכל ליצור עבורך את המדיטציה הלילה.")
