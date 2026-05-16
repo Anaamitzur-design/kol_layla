@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 # הגדרת ה-API באמצעות ה-Secrets של המערכת (שלב 5)
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
 # הגדרת הממשק - מותאם לקריאה רכה בלילה
 st.title("קול לילה 🌙")
