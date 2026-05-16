@@ -45,6 +45,6 @@ if st.button("צור את מדיטציית הלילה שלי"):
                 st.write(response.text)
                 
             except Exception as e:
-                st.error("חלה שגיאה בתקשורת עם ה-AI. ודאי שמפתח ה-API הוגדר כראוי ב-Secrets.")
+                st.error("פיל ורוד")
     else:
         st.warning("בבקשה מלאי את שלושת השדות כדי שנוכל ליצור עבורך את המדיטציה הלילה.")
