@@ -1,13 +1,10 @@
 import streamlit as st
 import google.generativeai as genai
 
-# --- מנגנון שמירת המפתח בדפדפן (Cookies) ---
-# נבדוק אם יש כבר מפתח שמור בדפדפן מהביקור הקודם
-saved_key = st.cookies.get("gemini_api_key", "")
-
-# אם נמצא מפתח שמור, נשמור אותו בזיכרון הריצה הנוכחי
-if saved_key and "user_api_key" not in st.session_state:
-    st.session_state.user_api_key = saved_key
+# --- מנגנון שמירת המפתח בכתובת האתר (Query Params) ---
+# נבדוק אם יש כבר מפתח שמור בכתובת האתר
+if "user_api_key" not in st.session_state:
+    st.session_state.user_api_key = st.query_params.get("api_key", "")
 
 # --- סרגל צד לבקשת מפתח API מהמשתמש ---
 st.sidebar.title("הגדרות חיבור")
@@ -15,15 +12,15 @@ st.sidebar.title("הגדרות חיבור")
 # תיבת הקלט מקבלת את המפתח השמור כברירת מחדל
 user_api_key = st.sidebar.text_input(
     "הכניסו מפתח Gemini API:",
-    value=st.session_state.get("user_api_key", ""),
+    value=st.session_state.user_api_key,
     type="password",
-    help="המפתח יישמר בבטחה על המכשיר שלך ולא תצטרכי להזין אותו שוב."
+    help="המפתח יישמר בכתובת האתר ולא תצטרכי להזין אותו שוב."
 )
 
-# ברגע שהמשתמש מזין מפתח, נשמור אותו ב-Cookies של המכשיר
-if user_api_key and user_api_key != saved_key:
-    st.cookies["gemini_api_key"] = user_api_key
+# ברגע שהמשתמש מזין מפתח, נשמור אותו בכתובת האתר
+if user_api_key and user_api_key != st.session_state.user_api_key:
     st.session_state.user_api_key = user_api_key
+    st.query_params["api_key"] = user_api_key
     st.rerun()
 
 st.sidebar.markdown("[איך משיגים מפתח בחינם?](https://aistudio.google.com/)")
