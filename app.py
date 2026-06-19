@@ -1,14 +1,30 @@
 import streamlit as st
 import google.generativeai as genai
 
+# --- מנגנון שמירת המפתח בדפדפן (Cookies) ---
+# נבדוק אם יש כבר מפתח שמור בדפדפן מהביקור הקודם
+saved_key = st.cookies.get("gemini_api_key", "")
+
+# אם נמצא מפתח שמור, נשמור אותו בזיכרון הריצה הנוכחי
+if saved_key and "user_api_key" not in st.session_state:
+    st.session_state.user_api_key = saved_key
+
 # --- סרגל צד לבקשת מפתח API מהמשתמש ---
 st.sidebar.title("הגדרות חיבור")
+
+# תיבת הקלט מקבלת את המפתח השמור כברירת מחדל
 user_api_key = st.sidebar.text_input(
     "הכניסו מפתח Gemini API:",
+    value=st.session_state.get("user_api_key", ""),
     type="password",
-    autocomplete="current-password",
-    help="המפתח נשמר בדפדפן שלך בלבד ומשמש אך ורק ליצירת המדיטציה הנוכחית."
+    help="המפתח יישמר בבטחה על המכשיר שלך ולא תצטרכי להזין אותו שוב."
 )
+
+# ברגע שהמשתמש מזין מפתח, נשמור אותו ב-Cookies של המכשיר
+if user_api_key and user_api_key != saved_key:
+    st.cookies["gemini_api_key"] = user_api_key
+    st.session_state.user_api_key = user_api_key
+    st.rerun()
 
 st.sidebar.markdown("[איך משיגים מפתח בחינם?](https://aistudio.google.com/)")
 
@@ -26,7 +42,7 @@ model = genai.GenerativeModel('gemini-2.5-flash')
 st.title("קול לילה 🌙")
 st.write("ברוכה הבאה למרחב ההשתקפות הלילי שלך. קחי נשימה עמוקה, ונסי לענות על שלושת העוגנים:")
 
-# תיבות טקסט לכתיבה חופשית (st.text_area מאפשר לכתוב כמה שורות בנוח)
+# תיבות טקסט לכתיבה חופשית
 thought_input = st.text_area("1. מחשבה שעולה לי עכשיו או שליוותה אותי היום:")
 emotion_input = st.text_area("2. רגש דומיננטי שאני מרגישה עכשיו או שליווה אותי היום:")
 action_input = st.text_area("3. פעולה שעשיתי היום:")
