@@ -1,5 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
+# הגדרת אייקון וכותרת רשמיים לאפליקציה בדפדפן ובמסך הבית
+st.set_page_config(page_title="קול לילה 🌙", page_icon="🌙")
 
 # --- מנגנון שמירת המפתח בכתובת האתר (Query Params) ---
 # נבדוק אם יש כבר מפתח שמור בכתובת האתר
