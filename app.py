@@ -1,5 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
+from gtts import gTTS
+import io
 # הגדרת אייקון וכותרת רשמיים לאפליקציה בדפדפן ובמסך הבית
 st.set_page_config(page_title="קול לילה 🌙", page_icon="🌙")
 # קישור לתמונה של האייקון שלך (כרגע תמונת ירח זהב, את יכולה להחליף לכל קישור של תמונה)
@@ -88,6 +90,19 @@ if st.button("צור את מדיטציית הלילה שלי"):
                 # הצגת התוצאה בממשק
                 st.markdown("---")
                 st.write(response.text)
+# --- יצירת נגן האודיו הפשוט ---
+                st.markdown("### 🎧 האזיני למדיטציה שלך:")
+                
+                # הפיכת הטקסט לסאונד בעברית (iw = Hebrew)
+                tts = gTTS(text=response.text, lang='iw', slow=False)
+                
+                # שמירת הסאונד לזיכרון הריצה הווירטואלי של האתר
+                audio_buffer = io.BytesIO()
+                tts.write_to_fp(audio_buffer)
+                audio_buffer.seek(0)
+                
+                # הצגת נגן מוזיקה מובנה באתר
+                st.audio(audio_buffer, format="audio/mp3")
                 
             except Exception as e:
                 st.error(f"השגיאה שגוגל החזירה היא: {e}")
