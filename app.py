@@ -6,6 +6,7 @@ st.sidebar.title("הגדרות חיבור")
 user_api_key = st.sidebar.text_input(
     "הכניסו מפתח Gemini API:",
     type="password",
+    autocomplete="current-password",
     help="המפתח נשמר בדפדפן שלך בלבד ומשמש אך ורק ליצירת המדיטציה הנוכחית."
 )
 
