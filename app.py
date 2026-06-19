@@ -13,8 +13,8 @@ st.sidebar.markdown("[איך משיגים מפתח בחינם?](https://aistudio
 
 # חסימת המשך הציור אם אין מפתח
 if not user_api_key:
-    st.info("🔑 אנא הכניסו את מפתח ה-API שלכם בסרגל הצד (Sidebar) כדי להתחיל.")
-    st.stop()
+st.info("🔑 כדי להתחיל, אנא הכניסו את מפתח ה-API שלכם בסרגל הצד.")
+st.stop()
 
 # אתחול המודל עם המפתח שהמשתמש הכניס
 genai.configure(api_key=user_api_key)
