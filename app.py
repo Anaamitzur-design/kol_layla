@@ -18,7 +18,7 @@ if not user_api_key:
 
 # אתחול המודל עם המפתח שהמשתמש הכניס
 genai.configure(api_key=user_api_key)
-model = genai.GenerativeModel('models/gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.5-flash')
 # ----------------------------------------------------
 
 # הגדרת הממשק - מותאם לקריאה רכה בלילה
