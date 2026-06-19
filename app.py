@@ -2,7 +2,20 @@ import streamlit as st
 import google.generativeai as genai
 # הגדרת אייקון וכותרת רשמיים לאפליקציה בדפדפן ובמסך הבית
 st.set_page_config(page_title="קול לילה 🌙", page_icon="🌙")
+# קישור לתמונה של האייקון שלך (כרגע תמונת ירח זהב, את יכולה להחליף לכל קישור של תמונה)
+ICON_URL = "https://img.icons8.com/fluency/96/crescent-moon.png"
 
+# הזרקת קוד HTML חכם כדי שהטלפון יזהה את האייקון בשמירה למסך הבית
+st.markdown(
+    f"""
+    <head>
+        <link rel="apple-touch-icon" href="{ICON_URL}">
+        <link rel="icon" type="image/png" href="{ICON_URL}">
+        <meta name="apple-mobile-web-app-image" content="{ICON_URL}">
+    </head>
+    """,
+    unsafe_allow_code=True
+)
 # --- מנגנון שמירת המפתח בכתובת האתר (Query Params) ---
 # נבדוק אם יש כבר מפתח שמור בכתובת האתר
 if "user_api_key" not in st.session_state:
