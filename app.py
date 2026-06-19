@@ -14,7 +14,7 @@ st.markdown(
         <meta name="apple-mobile-web-app-image" content="{ICON_URL}">
     </head>
     """,
-    unsafe_allow_code=True
+    unsafe_allow_html=True
 )
 # --- מנגנון שמירת המפתח בכתובת האתר (Query Params) ---
 # נבדוק אם יש כבר מפתח שמור בכתובת האתר
